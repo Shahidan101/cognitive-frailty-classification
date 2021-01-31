@@ -133,5 +133,9 @@ def preprocess(csvfile):
 	df = df.drop(['A1_2', 'B1_b4', 'B2_c3', 'B4_b2'], axis=1)
 
 	df.to_csv("rawfile_blood_parsed.csv", index=False)
+    
+	print("\n####################################################################")
+	print("Number of Columns after dropping A1_2, B1_b4, B2_c3, B4_b2 for inconsistent data types:")
+	print(len(df.columns))
 
 	return df
