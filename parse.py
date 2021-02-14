@@ -5,11 +5,14 @@ def preprocess(csvfile):
 	import os
 	import sys
 
-	# Clear terminal window
-	os.system("cls")
-
 	# Load CSV File
 	df = pd.read_csv(csvfile)
+
+	df = df[df.condition != 'frail']
+
+	df = df.reset_index(drop=True)
+
+	print(df['condition'].value_counts())
 
 	print("\n####################################################################")
 	print("Number of Rows of Dataframe:")
@@ -137,5 +140,5 @@ def preprocess(csvfile):
 	print("\n####################################################################")
 	print("Number of Columns after dropping A1_2, B1_b4, B2_c3, B4_b2 for inconsistent data types:")
 	print(len(df.columns))
-
+    
 	return df
