@@ -8,9 +8,8 @@ def preprocess(csvfile):
 	# Load CSV File
 	df = pd.read_csv(csvfile)
 
-	df = df[df.condition != 'frail']
-
-	df = df.reset_index(drop=True)
+	# df = df[df.condition != 'frail']
+	# df = df.reset_index(drop=True)
 
 	print(df['condition'].value_counts())
 
@@ -48,6 +47,15 @@ def preprocess(csvfile):
 	print("\nColumns Removed:")
 	for items in name_of_column:
 		print(items)
+
+	# Drop A1_2, B1_b4, B2_c3, B4_b2
+	df = df.drop(['A1_2', 'B1_b4', 'B2_c3', 'B4_b2'], axis=1)
+
+	df.to_csv("rawfile_blood_parsed.csv", index=False)
+    
+	print("\n####################################################################")
+	print("Number of Columns after dropping A1_2, B1_b4, B2_c3, B4_b2 for inconsistent data types:")
+	print(len(df.columns))
 
 	# If there are #NULL!s in any data for any rows/columns, remove the whole row
 	list_of_removables = []
@@ -132,13 +140,6 @@ def preprocess(csvfile):
 
 	df['B3'] = df['B3'].astype(float)
 
-	# Drop A1_2, B1_b4, B2_c3, B4_b2
-	df = df.drop(['A1_2', 'B1_b4', 'B2_c3', 'B4_b2'], axis=1)
-
 	df.to_csv("rawfile_blood_parsed.csv", index=False)
-    
-	print("\n####################################################################")
-	print("Number of Columns after dropping A1_2, B1_b4, B2_c3, B4_b2 for inconsistent data types:")
-	print(len(df.columns))
     
 	return df
