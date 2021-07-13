@@ -50,8 +50,6 @@ def RobustFrailMCIpreprocess(csvfile):
 
     # # Drop B1_b4, B2_c3, B4_b2
     df = df.drop(['B1_b4', 'B2_c3', 'B4_b2'], axis=1)
-
-    # df.to_csv("rawfile_blood_parsed.csv", index=False)
     
     print("\n####################################################################")
     print("Number of Columns after dropping B1_b4, B2_c3, B4_b2 for inconsistent data types:")
@@ -76,12 +74,12 @@ def RobustFrailMCIpreprocess(csvfile):
     print("Number of Rows after Parsing NULLs in data:")
     print(len(df))
 
-    df.to_csv("rawfile_robust_frailmci_parsed.csv", index=False)
+    df.to_csv("rawfile_final_parsed.csv", index=False)
 
     # For column 'B1_a1', data dictionary indicates ranges should be around 4.50 - 6.50 for normal
     # Dataset has cells that indicate exponent values(e12).
     # Action: Divide values exceeding 10 by 10e12
-    df = pd.read_csv("rawfile_robust_frailmci_parsed.csv")
+    df = pd.read_csv("rawfile_final_parsed.csv")
 
     df['B1_a1'] = df['B1_a1'].astype(float)
 
@@ -140,6 +138,6 @@ def RobustFrailMCIpreprocess(csvfile):
 
     df['B3'] = df['B3'].astype(float)
 
-    df.to_csv("rawfile_robust_frailmci_parsed.csv", index=False)
+    df.to_csv("rawfile_final_parsed.csv", index=False)
     
     return df
